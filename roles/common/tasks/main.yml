@@ -1,0 +1,42 @@
+# Update all packages
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Upgrade all packages
+  apt:
+    upgrade: dist
+
+# Set the timezone
+- name: Set timezone to UTC
+  timezone:
+    name: Etc/UTC
+
+# Create a user with sudo privileges
+- name: Create a deploy user
+  user:
+    name: dzheb
+    groups: sudo
+    append: yes
+    shell: /bin/bash
+    createhome: yes
+    password: "{{ '7203' | password_hash('sha512') }}"
+
+- name: Allow 'dzheb' user to have passwordless sudo
+  lineinfile:
+    path: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL:ALL) NOPASSWD:ALL'
+
+# Install basic utilities
+- name: Install basic packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - curl
+    - git
+    - unzip
+    - htop
+    - nano

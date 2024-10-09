@@ -1,0 +1,9 @@
+---
+- hosts: webservers
+  become: true
+
+  roles:
+    - role: common      # Common tasks like server update, user creation
+    - role: nginx       # Install and configure Nginx
+    - role: php         # Install PHP and extensions
+    - role: mysql       # Install and configure MySQL

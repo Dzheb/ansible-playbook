@@ -1,0 +1,6 @@
+[webservers]
+192.168.0.114
+
+[all:vars]
+ansible_ssh_user=root  # SSH user
+ansible_ssh_private_key_file=~/.ssh/id_rsa  # Private SSH key

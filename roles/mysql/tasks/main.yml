@@ -1,0 +1,27 @@
+---
+- name: Install MySQL server
+  apt:
+    name: mysql-server
+    state: present
+
+- name: Ensure MySQL is running
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Create MySQL root user with no password (for development)
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: ""
+    state: present
+  loop:
+    - "localhost"
+    - "127.0.0.1"
+    - "::1"
+
+- name: Remove MySQL test database
+  mysql_db:
+    name: test
+    state: absent
