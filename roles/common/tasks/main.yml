@@ -15,14 +15,14 @@
 # Create a user with sudo privileges
 - name: Create a deploy user
   user:
-    name: dzheb
+    name: deploy
     groups: sudo
     append: yes
     shell: /bin/bash
     createhome: yes
-    password: "{{ '7203' | password_hash('sha512') }}"
+    password: '7203'
 
-- name: Allow 'dzheb' user to have passwordless sudo
+- name: Allow 'deploy' user to have passwordless sudo
   lineinfile:
     path: /etc/sudoers
     state: present

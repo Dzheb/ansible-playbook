@@ -1,27 +1,24 @@
 ---
-- name: Install MySQL server
-  apt:
-    name: mysql-server
+# - name: Determine package manager
+#     ansible.builtin.set_fact:
+#        package_manager: "{{ 'apt' if ansible_distribution|lower in ['debian', 'ubuntu'] else 'yum' }}"
+#
+- name: Installing MySQL and Required dependencies
+  package:
+    name: "{{ item }}"
     state: present
+    update_cache: yes
+  loop:
+     - default-mysql-server
 
-- name: Ensure MySQL is running
+- name: Installing python_mysql
+  package:
+    name: "python3-mysqldb"
+    state: present
+    update_cache: yes
+
+- name: Start and enable mysql service
   service:
-    name: mysql
+    name: "mysql"
     state: started
     enabled: yes
-
-- name: Create MySQL root user with no password (for development)
-  mysql_user:
-    name: root
-    host: "{{ item }}"
-    password: ""
-    state: present
-  loop:
-    - "localhost"
-    - "127.0.0.1"
-    - "::1"
-
-- name: Remove MySQL test database
-  mysql_db:
-    name: test
-    state: absent

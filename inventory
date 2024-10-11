@@ -2,5 +2,11 @@
 192.168.0.114
 
 [all:vars]
-ansible_ssh_user=root  # SSH user
-ansible_ssh_private_key_file=~/.ssh/id_rsa  # Private SSH key
+mysql_root_password: ""
+service_name: "mysql"
+python_mysql: "python3-mysqldb"
+#ansible_ssh_pass=7203
+ansible_ssh_user=root
+#ansible_user=root  # SSH user
+# ansible_ssh_pass=7203
+# ansible_private_key_file=/root/.ssh/authorized_keys  # Private SSH key

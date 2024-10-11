@@ -2,8 +2,8 @@
 - name: Install PHP and common extensions
   apt:
     name:
-      - php
-      - php-fpm
+#      - php
+      - php8.2-fpm
       - php-mysql
       - php-xml
       - php-mbstring
@@ -12,6 +12,6 @@
 # Ensure PHP-FPM is running
 - name: Ensure PHP-FPM is running
   service:
-    name: php7.4-fpm
+    name: php8.2-fpm
     state: started
     enabled: yes
